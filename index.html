@@ -1,0 +1,848 @@
+<!-- Full HTML with hero animations -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
+    .loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: linear-gradient(45deg, #040607, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .loader div {
+      width: 40px; height: 40px;
+      margin: 5px;
+      background: #fff;
+      border-radius: 50%;
+      animation: bounce 0.6s infinite alternate;
+    }
+    .loader div:nth-child(2) { animation-delay: 0.2s; }
+    .loader div:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      to { transform: translateY(-30px); }
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes pulseImg {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); box-shadow: 0 0 15px #00ffd1; }
+      100% { transform: scale(1); }
+    }
+
+    header {
+      background: #111;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 { color: #00ffd1; }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      padding: 0.5rem;
+    }
+    nav a:hover { color: #00ffd1; }
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      nav { display: none; flex-direction: column; width: 100%; }
+      nav.active { display: flex; }
+      .hamburger { display: block; }
+    }
+
+    .hero, .section, footer {
+      padding: 4rem 2rem;
+    }
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-text {
+      animation: slideInLeft 1.5s ease;
+    }
+    .hero-text h2 {
+      font-size: 2.5rem;
+      color: #00ffd1;
+    }
+    .auto-type {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+    .hero-text a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #00ffd1;
+      color: #000;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+    .hero-text a:hover {
+      background: #00c7a3;
+    }
+    .hero-img {
+      
+      overflow: hidden;
+      margin: 2rem;
+      animation: slideInRight 1.5s ease;
+    }
+    .hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      transition: transform 0.4s;
+    }
+    .hero-img:hover img {
+      animation: pulseImg 1s ease infinite;
+    }
+
+    footer {
+      background: #111;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      color: #ccc;
+    }
+    footer div { min-width: 150px; }
+    footer h4 {
+      color: #00ffd1;
+      margin-bottom: 1rem;
+    }
+    footer a {
+      color: #ccc;
+      display: block;
+      margin: 0.3rem 0;
+      text-decoration: none;
+    }
+    footer a:hover { color: #00ffd1; }
+
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      z-index: 1000;
+    }
+
+    /* qualifications */
+
+       .timeline-section {
+      padding: 4rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+    }
+
+    .column {
+      flex: 1 1 300px;
+      max-width: 450px;
+      position: relative;
+    }
+
+    .column h2 {
+      color: #00ffd1;
+      margin-bottom: 2rem;
+      border-left: 4px solid #00ffd1;
+      padding-left: 10px;
+    }
+
+    .timeline-item {
+      position: relative;
+      background: #111;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 0 transparent;
+    }
+
+    .timeline-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 12px #00ffd1;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 1rem;
+      width: 12px;
+      height: 12px;
+      background-color: #00ffd1;
+      border-radius: 50%;
+      border: 2px solid #111;
+    }
+
+    .timeline-date {
+      font-size: 0.9rem;
+      color: #00ffd1;
+      font-weight: bold;
+    }
+
+    .timeline-title {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      color: #fff;
+    }
+
+    .timeline-description {
+      font-size: 0.95rem;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-section {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    /* skills */
+    .project-card:hover .project-overlay {
+      opacity: 1 !important;
+    }
+
+    @media (max-width: 768px) {
+      .project-card {
+        width: 90% !important;
+        height: 200px !important;
+      }
+    }
+    /* contact */
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* contact */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width:768px) {
+      #contact div { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <div></div><div></div><div></div>
+  </div>
+  <header>
+    <h1>Ankita</h1>
+
+    <div class="hamburger" onclick="toggleNav()">☰</div>
+    <nav id="nav">
+      <a href="#">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#qualifications">Qualifications</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- hero -->
+   <section class="hero" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 4rem 2rem;">
+  <!-- Left Text Section -->
+  <div class="hero-text" style="flex: 1 1 300px; max-width: 800px; text-align: left; padding: 1rem;">
+    <h2 style="font-size: 2.2rem; color: #00ffd1; margin-bottom: 1rem;">Hello, I’m Ankita</h2>
+    <div class="auto-type" id="typing" style="font-size: 1.1rem; margin-bottom: 1.5rem;"></div>
+    <p style="font-size: 1.1rem; line-height: 1.6; color: #ccc;">
+  I’m Ankita, a passionate and creative web developer with a strong foundation in both frontend and backend technologies. With a love for clean code and visually appealing designs, .
+   </p>
+
+    <a href="#" style="display: inline-block; padding: 10px 20px; background: #00ffd1; color: #000; border-radius: 5px; text-decoration: none;">Download CV</a>
+  </div>
+
+  <!-- Right Image Section -->
+  <div class="hero-img" style="flex: 1 1 300px; display: flex; justify-content: center; align-items: center; padding: 1rem;">
+    <img 
+      src="https://media.istockphoto.com/id/1353588870/photo/young-indian-woman-on-yellow-copy-space-background-stock-photo.jpg?b=1&s=612x612&w=0&k=20&c=HZ7uvm-zZHgXVJb0dmbPApghCVer5KJiUoWJxkIkYZQ=" 
+      alt="Ankita" 
+      style="border: 3px solid rgb(242, 243, 248); width: 100%; max-width: 400px; height: auto; border-radius: 50%; object-fit: cover; transition: transform 0.4s ease;" 
+      onmouseover="this.style.transform='scale(1.05)'" 
+      onmouseout="this.style.transform='scale(1)'">
+
+
+  </div>
+</section>
+
+<!-- Fixed Social Icons Column -->
+<div id="social-column" style="
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  z-index: 1000;
+">
+
+  <!-- GitHub -->
+  <a href="https://github.com/yourusername" target="_blank" style="
+    background: #111;
+    color: #fff;
+    padding: 10px;
+    border-radius: 0 8px 8px 0;
+    text-decoration: none;
+    transition: all 0.3s;
+  " onmouseover="this.style.background='#00ffd1'; this.style.color='#000';"
+     onmouseout="this.style.background='#111'; this.style.color='#fff';">
+    <i class="fab fa-github"></i>
+  </a>
+
+  <!-- LinkedIn -->
+  <a href="https://linkedin.com/in/yourprofile" target="_blank" style="
+    background: #111;
+    color: #fff;
+    padding: 10px;
+    border-radius: 0 8px 8px 0;
+    text-decoration: none;
+    transition: all 0.3s;
+  " onmouseover="this.style.background='#00ffd1'; this.style.color='#000';"
+     onmouseout="this.style.background='#111'; this.style.color='#fff';">
+    <i class="fab fa-linkedin"></i>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://instagram.com/yourprofile" target="_blank" style="
+    background: #111;
+    color: #fff;
+    padding: 10px;
+    border-radius: 0 8px 8px 0;
+    text-decoration: none;
+    transition: all 0.3s;
+  " onmouseover="this.style.background='#00ffd1'; this.style.color='#000';"
+     onmouseout="this.style.background='#111'; this.style.color='#fff';">
+    <i class="fab fa-instagram"></i>
+  </a>
+</div>
+
+
+<!-- qualifiations and experienced -->
+ <h1 style="text-align: center; color:#00c7a3 ;">Qualifications and experienced</h1>
+ <section id="qualifications" class="timeline-section">
+    <!-- Education -->
+     
+    <div class="column">
+      <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2015 – 2018</div>
+        <div class="timeline-title">High School Degree</div>
+        <div class="timeline-description">Completed senior secondary education with a focus in science and mathematics.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2018 – 2022</div>
+        <div class="timeline-title">Bachelor’s Degree</div>
+        <div class="timeline-description">Graduated with a B.Tech in Computer Science from ABC University with distinction.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2022 – 2024</div>
+        <div class="timeline-title">Master’s Degree</div>
+        <div class="timeline-description">Pursuing M.Tech in Artificial Intelligence with research in deep learning systems.</div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="column">
+      <h2><i class="fas fa-briefcase"></i> Experience</h2>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2023 – Present</div>
+        <div class="timeline-title">UI/UX Designer</div>
+        <div class="timeline-description">Working on designing intuitive user interfaces and enhancing user experience.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2022 – 2023</div>
+        <div class="timeline-title">Full Stack Developer</div>
+        <div class="timeline-description">Built scalable web apps using Django, React, and REST APIs at XYZ Company.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2021 – 2022</div>
+        <div class="timeline-title">Frontend Developer</div>
+        <div class="timeline-description">Interned at ABC Solutions where I developed responsive web UIs with Bootstrap and JS.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- skills sections  -->
+
+  <section id="skills" style="background: #000; color: #fff; padding: 4rem 1rem; text-align: center; font-family: 'Segoe UI', sans-serif;">
+  <h2 style="color: #00ffd1; margin-bottom: 2rem;">Skills</h2>
+
+  <!-- Buttons -->
+  <div style="margin-bottom: 2rem;">
+    <button onclick="filterSkills('all')" style="margin: 0.5rem; padding: 10px 20px; background: #00ffd1; border: none; border-radius: 5px; cursor: pointer;">All</button>
+    <button onclick="filterSkills('frontend')" style="margin: 0.5rem; padding: 10px 20px; background: #111; color: #00ffd1; border: 1px solid #00ffd1; border-radius: 5px; cursor: pointer;">Frontend</button>
+    <button onclick="filterSkills('backend')" style="margin: 0.5rem; padding: 10px 20px; background: #111; color: #00ffd1; border: 1px solid #00ffd1; border-radius: 5px; cursor: pointer;">Backend</button>
+    <button onclick="filterSkills('database')" style="margin: 0.5rem; padding: 10px 20px; background: #111; color: #00ffd1; border: 1px solid #00ffd1; border-radius: 5px; cursor: pointer;">Database</button>
+    <button onclick="filterSkills('cloud')" style="margin: 0.5rem; padding: 10px 20px; background: #111; color: #00ffd1; border: 1px solid #00ffd1; border-radius: 5px; cursor: pointer;">Cloud</button>
+  </div>
+
+  <!-- Skills Grid -->
+  <div id="skills-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+    <!-- Skill Item -->
+    <div class="skill-card frontend" style="width: 140px; transition: 0.3s; animation: fadeIn 1s;">
+      <div style="width: 100px; height: 100px; margin: auto; border-radius: 50%; overflow: hidden; border: 3px solid #00ffd1;">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <p style="margin-top: 10px;">HTML</p>
+    </div>
+
+    <div class="skill-card frontend" style="width: 140px; transition: 0.3s; animation: fadeIn 1s;">
+      <div style="width: 100px; height: 100px; margin: auto; border-radius: 50%; overflow: hidden; border: 3px solid #00ffd1;">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <p style="margin-top: 10px;">CSS</p>
+    </div>
+
+    <div class="skill-card frontend" style="width: 140px;">
+      <div style="width: 100px; height: 100px; margin: auto; border-radius: 50%; overflow: hidden; border: 3px solid #00ffd1;">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <p style="margin-top: 10px;">JavaScript</p>
+    </div>
+
+    <div class="skill-card backend" style="width: 140px;">
+      <div style="width: 100px; height: 100px; margin: auto; border-radius: 50%; overflow: hidden; border: 3px solid #00ffd1;">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <p style="margin-top: 10px;">Python</p>
+    </div>
+
+    <div class="skill-card backend" style="width: 140px;">
+      <div style="width: 100px; height: 100px; margin: auto; border-radius: 50%; overflow: hidden; border: 3px solid #00ffd1;">
+        <img src="https://cdn-icons-png.flaticon.com/512/919/919836.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <p style="margin-top: 10px;">Django</p>
+    </div>
+
+    <div class="skill-card database" style="width: 140px;">
+      <div style="width: 100px; height: 100px; margin: auto; border-radius: 50%; overflow: hidden; border: 3px solid #00ffd1;">
+        <img src="https://cdn-icons-png.flaticon.com/512/919/919836.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <p style="margin-top: 10px;">MySQL</p>
+    </div>
+
+    <div class="skill-card cloud" style="width: 140px;">
+      <div style="width: 100px; height: 100px; margin: auto; border-radius: 50%; overflow: hidden; border: 3px solid #00ffd1;">
+        <img src="https://cdn-icons-png.flaticon.com/512/873/873120.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <p style="margin-top: 10px;">AWS</p>
+    </div>
+  </div>
+  </section>
+
+  <!-- projects -->
+   <section style="background: #000; color: #fff; padding: 4rem 1rem; font-family: 'Segoe UI', sans-serif;" id="projects">
+  <h2 style="color: #00ffd1; text-align: center; margin-bottom: 2rem;">My Projects</h2>
+
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+    
+    <!-- Project Card -->
+    <div class="project-card" style="width: 300px; height: 30vh; background: #111; border-radius: 10px; overflow: hidden; position: relative; box-shadow: 0 0 10px #00ffd1; transition: 0.3s;">
+      <img src="https://via.placeholder.com/300x200" alt="Project 1" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="project-overlay" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        opacity: 0;
+        transition: 0.4s ease;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      ">
+        <h3 style="color: #00ffd1; margin-bottom: 10px;">Portfolio Website</h3>
+        <p style="font-size: 0.9rem;">Responsive portfolio with HTML, CSS, JS.</p>
+        <a href="https://yourliveprojectlink.com" target="_blank" style="margin-top: 10px; color: #00ffd1; text-decoration: underline;">Live Demo</a>
+      </div>
+    </div>
+
+    <!-- Project Card 2 -->
+    <div class="project-card" style="width: 300px; height: 30vh; background: #111; border-radius: 10px; overflow: hidden; position: relative; box-shadow: 0 0 10px #00ffd1; transition: 0.3s;">
+      <img src="https://via.placeholder.com/300x200" alt="Project 2" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="project-overlay" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        opacity: 0;
+        transition: 0.4s ease;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      ">
+        <h3 style="color: #00ffd1; margin-bottom: 10px;">Real Estate Platform</h3>
+        <p style="font-size: 0.9rem;">Built with Django for property listings.</p>
+        <a href="https://realestate.com" target="_blank" style="margin-top: 10px; color: #00ffd1; text-decoration: underline;">Live Demo</a>
+      </div>
+    </div>
+
+    <!-- card 3 -->
+     <div class="project-card" style="width: 300px; height: 30vh; background: #111; border-radius: 10px; overflow: hidden; position: relative; box-shadow: 0 0 10px #00ffd1; transition: 0.3s;">
+      <img src="https://via.placeholder.com/300x200" alt="Project 2" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="project-overlay" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        opacity: 0;
+        transition: 0.4s ease;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      ">
+        <h3 style="color: #00ffd1; margin-bottom: 10px;">Real Estate Platform</h3>
+        <p style="font-size: 0.9rem;">Built with Django for property listings.</p>
+        <a href="https://realestate.com" target="_blank" style="margin-top: 10px; color: #00ffd1; text-decoration: underline;">Live Demo</a>
+      </div>
+    </div>
+
+
+    <div class="project-card" style="width: 300px; height: 30vh; background: #111; border-radius: 10px; overflow: hidden; position: relative; box-shadow: 0 0 10px #00ffd1; transition: 0.3s;">
+      <img src="https://via.placeholder.com/300x200" alt="Project 2" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="project-overlay" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        opacity: 0;
+        transition: 0.4s ease;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      ">
+        <h3 style="color: #00ffd1; margin-bottom: 10px;">Real Estate Platform</h3>
+        <p style="font-size: 0.9rem;">Built with Django for property listings.</p>
+        <a href="https://realestate.com" target="_blank" style="margin-top: 10px; color: #00ffd1; text-decoration: underline;">Live Demo</a>
+      </div>
+    </div>
+
+  </div>
+   </section>
+
+   <!-- Testimonial -->
+    <section id="testimonials" style="background:#000; color:#fff; padding:4rem 1rem; text-align:center; font-family:Arial, sans-serif;">
+  <h2 style="color:#00ffd1; margin-bottom:2rem;">Testimonials</h2>
+  <div class="slider" style="position:relative; max-width:600px; margin:auto; overflow:hidden;">
+    <div class="slides" id="testimonialSlides" style="display:flex; transition:transform 0.5s ease;">
+      <!-- Slide 1 -->
+      <div style="min-width:100%; box-sizing:border-box; padding:2rem; background:#111; border-radius:10px;">
+        <p style="font-style:italic;">“Ankita delivered a stunning website that elevated our brand.”</p>
+        <p style="margin-top:1rem; font-weight:bold; color:#00ffd1;">— Rahul Verma, CEO</p>
+      </div>
+      <!-- Slide 2 -->
+      <div style="min-width:100%; box-sizing:border-box; padding:2rem; background:#111; border-radius:10px;">
+        <p style="font-style:italic;">“Her attention to detail and creative design sense is unmatched.”</p>
+        <p style="margin-top:1rem; font-weight:bold; color:#00ffd1;">— Sneha Sharma, Product Lead</p>
+      </div>
+      <!-- Slide 3 -->
+      <div style="min-width:100%; box-sizing:border-box; padding:2rem; background:#111; border-radius:10px;">
+        <p style="font-style:italic;">“From backend to UI, everything was delivered on time and perfectly.”</p>
+        <p style="margin-top:1rem; font-weight:bold; color:#00ffd1;">— Arjun Nair, Developer</p>
+      </div>
+    </div>
+
+    <!-- Dots -->
+    <div style="margin-top:1rem;">
+      <span class="dot" onclick="showSlide(0)" style="cursor:pointer; height:12px; width:12px; margin:0 5px; background:#00ffd1; border-radius:50%; display:inline-block;"></span>
+      <span class="dot" onclick="showSlide(1)" style="cursor:pointer; height:12px; width:12px; margin:0 5px; background:#888; border-radius:50%; display:inline-block;"></span>
+      <span class="dot" onclick="showSlide(2)" style="cursor:pointer; height:12px; width:12px; margin:0 5px; background:#888; border-radius:50%; display:inline-block;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- other activities -->
+ <section id="about-me-details" style="padding:4rem 1rem; background:#000; color:#fff; font-family:'Segoe UI', sans-serif;">
+  <h2 style="text-align:center; color:#00ffd1; margin-bottom:3rem;">More About Me</h2>
+
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:2rem;">
+
+    <!-- Card Template -->
+    <div class="info-card" style="
+      flex: 1;
+      min-width:260px;
+      background:#111;
+      border-radius:12px;
+      padding:2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease, background 0.4s ease;
+      cursor: pointer;
+    " onmouseover="this.style.background='#00ffd1'; this.style.transform='translateY(-10px)'; this.style.color='#000';"
+       onmouseout="this.style.background='#111'; this.style.transform='translateY(0)'; this.style.color='#fff';">
+      <h3 style="color:#00ffd1;">🧠 Languages I Know</h3>
+      <ul style="text-align:left; margin-top:1rem; line-height:1.8;">
+        <li>English – Fluent</li>
+        <li>Hindi – Native</li>
+        <li>Python – Expert</li>
+        <li>JavaScript – Intermediate</li>
+        <li>C++ – Basic</li>
+        <li>HTML & CSS – Advanced</li>
+      </ul>
+    </div>
+
+    <div class="info-card" style="
+      flex: 1;
+      min-width:260px;
+      background:#111;
+      border-radius:12px;
+      padding:2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease, background 0.4s ease;
+      cursor: pointer;
+    " onmouseover="this.style.background='#00ffd1'; this.style.transform='translateY(-10px)'; this.style.color='#000';"
+       onmouseout="this.style.background='#111'; this.style.transform='translateY(0)'; this.style.color='#fff';">
+      <h3 style="color:#00ffd1;">🎨 My Hobbies</h3>
+      <ul style="text-align:left; margin-top:1rem; line-height:1.8;">
+        <li>Creative Designing</li>
+        <li>Sketching & Art</li>
+        <li>Listening to Music</li>
+        <li>Exploring New Tech</li>
+        <li>Blogging & Writing</li>
+      </ul>
+    </div>
+
+    <div class="info-card" style="
+      flex: 1;
+      min-width:260px;
+      background:#111;
+      border-radius:12px;
+      padding:2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease, background 0.4s ease;
+      cursor: pointer;
+    " onmouseover="this.style.background='#00ffd1'; this.style.transform='translateY(-10px)'; this.style.color='#000';"
+       onmouseout="this.style.background='#111'; this.style.transform='translateY(0)'; this.style.color='#fff';">
+      <h3 style="color:#00ffd1;">💫 My Character</h3>
+      <ul style="text-align:left; margin-top:1rem; line-height:1.8;">
+        <li>Self-Motivated</li>
+        <li>Disciplined & Focused</li>
+        <li>Curious Learner</li>
+        <li>Team Player</li>
+        <li>Great Communicator</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+    
+
+
+
+    <!-- Contact Section -->
+<section id="contact" style="background:#000; color:#fff; padding:4rem 1rem; font-family:Arial, sans-serif;">
+  <h2 style="color:#00ffd1; text-align:center; margin-bottom:2rem;">Contact / Get in Touch</h2>
+
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; animation:fadeInUp 1s ease;">
+    
+    <!-- Left: Google Map -->
+    <div style="flex:1; min-width:300px;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.8881706674044!2d90.39423601536652!3d23.750885994771503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xabc!2sYour+Location!5e0!3m2!1sen!2sin!4v1610000000000"
+        width="100%" height="300" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+
+    <!-- Right: Form -->
+    <div style="flex:1; min-width:300px; background:#111; padding:2rem; border-radius:10px;">
+      <form>
+        <input type="text" placeholder="Your Name" required style="width:100%; padding:10px; margin-bottom:1rem; border:none; border-radius:5px;">
+        <input type="email" placeholder="Your Email" required style="width:100%; padding:10px; margin-bottom:1rem; border:none; border-radius:5px;">
+        <textarea placeholder="Your Message" required style="width:100%; padding:10px; height:100px; border:none; border-radius:5px;"></textarea>
+        <button type="submit" style="margin-top:1rem; background:#00ffd1; color:#000; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+</section>
+
+
+<!-- Font Awesome for form icons (if needed) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+   
+
+
+
+
+
+  <footer>
+    <div>
+      <h4>Pages</h4>
+      <a href="#">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+    </div>
+    <div>
+      <h4>About</h4>
+      <p>Creative Web Developer based in India.</p>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+      <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <a href="#"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+    <div>
+      <h4>Address</h4>
+      <p>123 Developer Lane<br/>Tech City, India</p>
+    </div>
+  </footer>
+  <a href="https://wa.me/7894432117" class="whatsapp-button" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  
+  <script>
+    function toggleNav() {
+      document.getElementById('nav').classList.toggle('active');
+    }
+    const typingText = ["Creative Developer", "UI/UX Designer", "Backend Engineer"];
+    let index = 0, charIndex = 0, currentText = "";
+    const typingElement = document.getElementById("typing");
+    function typeEffect() {
+      if (charIndex < typingText[index].length) {
+        currentText += typingText[index].charAt(charIndex);
+        typingElement.innerHTML = currentText;
+        charIndex++;
+        setTimeout(typeEffect, 100);
+      } else {
+        setTimeout(() => {
+          currentText = "";
+          charIndex = 0;
+          index = (index + 1) % typingText.length;
+          setTimeout(typeEffect, 1000);
+        }, 1000);
+      }
+    }
+    typeEffect();
+    window.addEventListener('load', function () {
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
+      loader.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500);
+    });
+  </script>
+
+
+<!-- Filter Script -->
+  <script>
+    function filterSkills(category) {
+      let cards = document.querySelectorAll(".skill-card");
+      cards.forEach(card => {
+        if (category === "all") {
+          card.style.display = "block";
+        } else {
+          card.style.display = card.classList.contains(category) ? "block" : "none";
+        }
+      });
+    }
+  </script>
+
+  <!-- testimonial sections -->
+   
+<script>
+  let currentSlide = 0;
+  const slides = document.getElementById("testimonialSlides");
+  const dots = document.querySelectorAll(".dot");
+
+  function showSlide(index) {
+    currentSlide = index;
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => dot.style.background = i === index ? "#00ffd1" : "#888");
+  }
+
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % 3;
+    showSlide(currentSlide);
+  }, 5000); // auto-slide every 5s
+</script>
+</body>
+</html>
